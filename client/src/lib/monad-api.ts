@@ -1,7 +1,7 @@
 import { BlockchainData, NetworkMetrics, TransactionMetrics, BlockMetrics, TokenMetrics, Transaction, Block, SwapActivity } from "@/types/blockchain";
 
 export class MonadApi {
-  private readonly RPC_URL = import.meta.env.VITE_MONAD_RPC_URL || 'https://testnet-rpc.monad.xyz';
+  private readonly RPC_URL = import.meta.env.VITE_MONAD_RPC_URL || 'https://monad-testnet.g.alchemy.com/v2/780NVB3ycNENBwwZtWe5W';
   private readonly EXPLORER_URL = import.meta.env.VITE_MONAD_EXPLORER_URL || 'https://testnet.monadexplorer.com/api';
   private readonly DEX_URL = import.meta.env.VITE_GECKO_API_URL || 'https://api.geckoterminal.com/api/v2/networks/monad-testnet';
 

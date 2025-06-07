@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import WebSocket from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -15,7 +15,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Proxy endpoint for Monad RPC calls to avoid CORS issues
   app.post("/api/monad/rpc", async (req, res) => {
     try {
-      const rpcUrl = process.env.MONAD_RPC_URL || 'https://testnet-rpc.monad.xyz';
+      const rpcUrl = process.env.MONAD_RPC_URL || 'https://monad-testnet.g.alchemy.com/v2/780NVB3ycNENBwwZtWe5W';
       
       const response = await fetch(rpcUrl, {
         method: 'POST',
@@ -107,7 +107,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
 
   // WebSocket server for real-time updates
-  const wss = new WebSocket.Server({ 
+  const wss = new WebSocketServer({ 
     server: httpServer,
     path: '/ws'
   });
