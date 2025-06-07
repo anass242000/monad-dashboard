@@ -69,7 +69,21 @@ export default function YakiBlockVisualizer({
     }
     
     const currentTps = blockData?.blocksPerMinute || 0;
-    console.log(`🦌 YAKI is racing at ${currentTps} blocks/min!`);
+    const raceResult = Math.random() > 0.5 ? 'wins' : 'loses';
+    
+    // Create visual race notification
+    const raceEl = document.createElement('div');
+    raceEl.className = 'fixed top-4 left-4 bg-green-600 text-white p-4 rounded-lg shadow-lg z-50 animate-pulse';
+    raceEl.innerHTML = `
+      <div class="font-bold">🦌 YAKI Speed Race</div>
+      <div>Current: ${currentTps} blocks/min</div>
+      <div>YAKI ${raceResult} the race!</div>
+    `;
+    document.body.appendChild(raceEl);
+    
+    setTimeout(() => {
+      raceEl.remove();
+    }, 3000);
   };
 
   if (error) {
@@ -195,8 +209,10 @@ export default function YakiBlockVisualizer({
               {recentBlocks.slice(0, 3).map((block, index) => (
                 <div
                   key={block.number}
-                  className="flex items-center justify-between text-xs animate-slide-in"
+                  className="flex items-center justify-between text-xs animate-slide-in cursor-pointer hover:bg-white/10 p-1 rounded transition-all"
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => window.open(`https://testnet.monadexplorer.com/block/${block.number}`, '_blank')}
+                  title="Click to view block on Monad Explorer"
                 >
                   <span className="font-mono text-purple-200">
                     #{block.number.toLocaleString()}

@@ -65,15 +65,25 @@ export default function ChogTransactionZone({
 
   const handleCoinFlip = () => {
     if (soundEnabled) {
-      // Would play sound effect here
       console.log('🔊 CHOG coin flip sound!');
     }
     
     const prediction = Math.random() > 0.5 ? 'fast' : 'slow';
     const blockTime = Math.random() * 3 + 1;
     
-    // Would show toast notification here
-    console.log(`🐷 CHOG predicts next block will be ${prediction} (~${blockTime.toFixed(1)}s)!`);
+    // Create and show a visual prediction
+    const predictionEl = document.createElement('div');
+    predictionEl.className = 'fixed top-4 right-4 bg-purple-600 text-white p-4 rounded-lg shadow-lg z-50 animate-bounce';
+    predictionEl.innerHTML = `
+      <div class="font-bold">🐷 CHOG Prediction</div>
+      <div>Next block: ${prediction}</div>
+      <div>~${blockTime.toFixed(1)}s</div>
+    `;
+    document.body.appendChild(predictionEl);
+    
+    setTimeout(() => {
+      predictionEl.remove();
+    }, 3000);
   };
 
   if (error) {
@@ -175,8 +185,10 @@ export default function ChogTransactionZone({
             recentTransactions.slice(0, 3).map((tx, index) => (
               <div
                 key={tx.hash}
-                className="text-xs font-mono bg-white/10 rounded p-2 flex justify-between animate-slide-in"
+                className="text-xs font-mono bg-white/10 rounded p-2 flex justify-between animate-slide-in cursor-pointer hover:bg-white/20 transition-all"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => window.open(`https://testnet.monadexplorer.com/tx/${tx.hash}`, '_blank')}
+                title="Click to view on Monad Explorer"
               >
                 <span className="text-purple-200">
                   {tx.hash.slice(0, 6)}...{tx.hash.slice(-6)}
