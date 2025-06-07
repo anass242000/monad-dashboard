@@ -1,0 +1,141 @@
+Create a "Monanimal Safari Dashboard" - a playful, real-time blockchain visualization dashboard for Monad Testnet that transforms blockchain data into a living ecosystem where adorable monanimals (CHOG, YAKI, and Moyaki) represent different network metrics.
+
+## 🎨 Design Theme & Aesthetic
+- **Color Scheme**: Purple-dominant theme with gradients (#8B5CF6, #A855F7, #C084FC)
+- **Style**: Modern glassmorphism with safari/nature elements
+- **Vibe**: Cute, silly, and "left curve" but professionally executed
+- **Responsive**: Mobile-first design that works perfectly on all devices
+
+## 🦄 Monanimal Characters & Their Roles
+- **CHOG**: Represents transaction volume (gets bigger with higher volume, dances when active)
+- **YAKI**: Represents block confirmations (jumps between blocks, runs faster with higher TPS)
+- **MOYAKI**: Represents gas usage (gets fatter with higher gas prices, sleeps when network is quiet)
+
+## 📊 Dashboard Layout Structure
+
+### Header Section
+- **Title**: "🦄 Monanimal Safari Dashboard - Live Monad Testnet Explorer"
+- **Subtitle**: "Watch the purple ecosystem come alive with real-time blockchain data"
+- **Live Status Indicator**: Green dot with "Testnet Live" status
+
+### Main Dashboard Grid (4 sections)
+1. **Top Left - CHOG Transaction Zone**
+   - Large animated CHOG character
+   - Live transaction counter with sound effects
+   - "CHOG Mood": Happy/Excited/Sleeping based on tx volume
+   - Recent transactions feed (last 10)
+
+2. **Top Right - Network Vital Signs**
+   - Current block height with climbing animation
+   - TPS (Transactions Per Second) with speedometer
+   - Gas price trends with line chart
+   - Network health indicator (Excellent/Good/Slow)
+
+3. **Bottom Left - YAKI Block Visualizer**
+   - YAKI character jumping between block representations
+   - Block production time tracker
+   - "Block Rain" animation when new blocks arrive
+   - Average block time display
+
+4. **Bottom Right - MOYAKI Token Safari**
+   - MOYAKI character tracking token swaps
+   - Live CHOG/MON, YAKI/WMON, MON/DAK price feeds
+   - Token swap activity counter
+   - Mini price charts for each pair
+
+### Bottom Section - Purple Transaction Rain
+- Full-width section showing live transactions falling like purple rain
+- Each transaction drop shows: hash, value, from/to (truncated)
+- Successful txs = normal purple drops, failed txs = red drops that explode
+
+## 🛠 Technical Implementation Requirements
+
+### Real-time Data Integration
+```javascript
+// Primary data sources to implement:
+const DATA_SOURCES = {
+  rpc: "https://testnet-rpc.monad.xyz",
+  explorer: "https://testnet.monadexplorer.com/api",
+  dex: "https://api.geckoterminal.com/api/v2/networks/monad-testnet",
+  websocket: "wss://testnet-rpc.monad.xyz"
+};
+
+// Key metrics to fetch and display:
+- Current block number (eth_blockNumber)
+- Latest transactions (eth_getBlockByNumber)
+- Gas prices (eth_gasPrice)
+- Token prices from GeckoTerminal API
+- Network TPS calculation
+- Mempool size estimation
+WebSocket Implementation
+
+Real-time block updates via WebSocket connection
+Live transaction streaming
+Auto-refresh every 3 seconds for price data
+Connection status indicator
+
+Animations & Interactions
+
+CHOG: Bounces when new transactions arrive, size scales with volume
+YAKI: Runs animation speed correlates with TPS, jumps on new blocks
+MOYAKI: Eating animation when gas is high, sleeping when low activity
+Transaction Rain: Smooth CSS animations for falling transaction drops
+Sound Effects: Optional toggle for monanimal sounds on events
+
+📱 Mobile Responsiveness
+
+Stack dashboard sections vertically on mobile
+Larger touch targets for all interactive elements
+Optimized monanimal animations for mobile performance
+Hamburger menu for additional settings
+
+🎵 Interactive Features
+
+Sound Toggle: Enable/disable monanimal sound effects
+Speed Control: Adjust animation speed (1x, 2x, 3x)
+Auto-refresh Toggle: Turn on/off real-time updates
+Dark/Light Mode: Toggle with purple theme variations
+Monanimal Selector: Click to focus on specific monanimal stats
+
+🎯 Bonus Silly Features
+
+CHOG Coin Flip: Click CHOG to predict next block time
+Yaki Race: YAKI speed race against current TPS
+Moyaki Feed: Click to "feed" Moyaki and see gas price reaction
+Safari Camera: Screenshot feature to capture current ecosystem state
+Monanimal Names: Randomly generated silly names for each session
+
+💾 Data Display Format
+
+Numbers: Format with commas and appropriate decimals
+Addresses: Truncate to first 6 and last 4 characters
+Time: Human-readable relative time (2 mins ago)
+Prices: USD format with $ symbol and 4 decimal places
+Percentages: Color-coded (green for positive, red for negative)
+
+🚀 Performance Requirements
+
+Load time under 3 seconds
+Smooth 60fps animations
+Efficient WebSocket connection management
+Error handling for network interruptions
+Graceful degradation when APIs are down
+
+🎨 Visual Elements
+
+Glassmorphism cards with subtle shadows
+Gradient backgrounds with purple hues
+Rounded corners and soft animations
+Hover effects on all interactive elements
+Loading spinners with monanimal themes
+Success/error toast notifications
+
+📊 Chart Requirements
+
+Use Chart.js or similar for gas price trends
+Real-time updating line charts
+Purple-themed chart colors
+Responsive chart sizing
+Smooth data transitions
+
+Deploy this as a fully functional, publicly accessible dashboard that showcases Monad Testnet's speed and the playful monanimal ecosystem. Make it both technically impressive and delightfully silly!
