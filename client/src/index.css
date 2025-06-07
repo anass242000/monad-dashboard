@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(251, 47%, 95%);
+  --foreground: hsl(251, 47%, 11%);
+  --muted: hsl(251, 27%, 89%);
+  --muted-foreground: hsl(251, 7%, 46%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(251, 47%, 11%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(251, 47%, 11%);
+  --border: hsl(251, 27%, 82%);
+  --input: hsl(251, 27%, 82%);
+  --primary: hsl(262, 83%, 58%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(251, 27%, 89%);
+  --secondary-foreground: hsl(251, 47%, 11%);
+  --accent: hsl(251, 27%, 89%);
+  --accent-foreground: hsl(251, 47%, 11%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(262, 83%, 58%);
+  --chart-1: hsl(262, 83%, 58%);
+  --chart-2: hsl(270, 95%, 75%);
+  --chart-3: hsl(269, 97%, 85%);
+  --chart-4: hsl(280, 87%, 65%);
+  --chart-5: hsl(250, 95%, 76%);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(251, 50%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(251, 50%, 14%);
+  --muted-foreground: hsl(251, 30%, 64%);
+  --popover: hsl(251, 50%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(251, 50%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(251, 50%, 14%);
+  --input: hsl(251, 50%, 14%);
+  --primary: hsl(262, 83%, 58%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(251, 50%, 14%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(251, 50%, 14%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(262, 83%, 58%);
+  --chart-1: hsl(262, 83%, 58%);
+  --chart-2: hsl(270, 95%, 75%);
+  --chart-3: hsl(269, 97%, 85%);
+  --chart-4: hsl(280, 87%, 65%);
+  --chart-5: hsl(250, 95%, 76%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom animations for monanimals */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes transaction-fall {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0.3;
+  }
+}
+
+@keyframes block-jump {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px);
+  }
+  25% {
+    transform: translateX(10px) translateY(-15px);
+  }
+  50% {
+    transform: translateX(20px) translateY(0px);
+  }
+  75% {
+    transform: translateX(30px) translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(262, 83%, 58%, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(262, 83%, 58%, 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+.animate-transaction-fall {
+  animation: transaction-fall 4s linear infinite;
+}
+
+.animate-block-jump {
+  animation: block-jump 2s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Glassmorphism effects */
+.glassmorphism {
+  background: rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.glassmorphism-strong {
+  background: rgba(139, 92, 246, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Monanimal character styles */
+.monanimal-character {
+  font-size: 4rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+}
+
+.monanimal-character:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.8));
+}
+
+/* Transaction rain styles */
+.transaction-drop {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  animation: transaction-fall 4s linear infinite;
+}
+
+.transaction-drop.success {
+  background: linear-gradient(to bottom, hsl(262, 83%, 58%), transparent);
+}
+
+.transaction-drop.failed {
+  background: linear-gradient(to bottom, hsl(0, 84%, 60%), transparent);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .monanimal-character {
+    font-size: 2.5rem;
+  }
+}
+
+/* Safari leaf animations */
+.safari-leaf {
+  color: hsl(142, 76%, 36%);
+  opacity: 0.7;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Metric card hover effects */
+.metric-card {
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+}
+
+/* Speed control animations */
+.speed-1x { animation-duration: 1s; }
+.speed-2x { animation-duration: 0.5s; }
+.speed-3x { animation-duration: 0.33s; }
