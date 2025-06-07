@@ -68,7 +68,24 @@ export default function MoyakiTokenSafari({
       console.log('🔊 MOYAKI feeding sound!');
     }
     
-    console.log('🦘 MOYAKI is well fed! Gas prices are stabilizing...');
+    const gasEffect = Math.random() > 0.5 ? 'decreasing' : 'increasing';
+    const gasChange = (Math.random() * 5 + 1).toFixed(1);
+    
+    // Create visual feeding notification
+    const feedEl = document.createElement('div');
+    feedEl.className = 'fixed top-4 center-4 bg-yellow-600 text-white p-4 rounded-lg shadow-lg z-50 animate-bounce';
+    feedEl.style.left = '50%';
+    feedEl.style.transform = 'translateX(-50%)';
+    feedEl.innerHTML = `
+      <div class="font-bold">🦘 MOYAKI Fed!</div>
+      <div>Gas prices ${gasEffect}</div>
+      <div>Change: ${gasChange} gwei</div>
+    `;
+    document.body.appendChild(feedEl);
+    
+    setTimeout(() => {
+      feedEl.remove();
+    }, 3000);
   };
 
   if (error) {

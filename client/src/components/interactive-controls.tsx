@@ -24,22 +24,72 @@ export default function InteractiveControls({
   networkData
 }: InteractiveControlsProps) {
   const handleScreenshot = () => {
-    // Screenshot functionality
-    console.log('📸 Safari snapshot captured! Check your downloads.');
+    // Create a canvas to capture the current state
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size to viewport
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Use html2canvas to capture the dashboard
+    import('html2canvas').then((html2canvas) => {
+      const html2canvasDefault = html2canvas.default || html2canvas;
+      html2canvasDefault(document.body, {
+        backgroundColor: '#1e1b4b',
+        scale: 0.8,
+        useCORS: true
+      }).then((canvas: HTMLCanvasElement) => {
+        // Create download link
+        const link = document.createElement('a');
+        link.download = `monanimal-safari-${new Date().toISOString().slice(0, 10)}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        
+        // Show success notification
+        const notificationEl = document.createElement('div');
+        notificationEl.className = 'fixed bottom-4 right-4 bg-green-600 text-white p-4 rounded-lg shadow-lg z-50';
+        notificationEl.innerHTML = '📸 Safari snapshot saved to downloads!';
+        document.body.appendChild(notificationEl);
+        
+        setTimeout(() => notificationEl.remove(), 3000);
+      });
+    }).catch(() => {
+      // Fallback: simple notification
+      const notificationEl = document.createElement('div');
+      notificationEl.className = 'fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-50';
+      notificationEl.innerHTML = '📸 Use browser screenshot (Ctrl+Shift+S) to capture safari!';
+      document.body.appendChild(notificationEl);
+      
+      setTimeout(() => notificationEl.remove(), 4000);
+    });
   };
 
   const handleRandomName = () => {
     const names = {
-      chog: ['Chloe', 'Charlie', 'Chester', 'Champ', 'Chomper'],
-      yaki: ['Yodel', 'Yuki', 'Yapper', 'Yogurt', 'Yonder'],
-      moyaki: ['Momo', 'Maple', 'Muffin', 'Marble', 'Mighty']
+      chog: ['Chloe', 'Charlie', 'Chester', 'Champ', 'Chomper', 'Bacon', 'Snuffles', 'Porky', 'Oink'],
+      yaki: ['Yodel', 'Yuki', 'Yapper', 'Yogurt', 'Yonder', 'Sprint', 'Dash', 'Lightning', 'Zoom'],
+      moyaki: ['Momo', 'Maple', 'Muffin', 'Marble', 'Mighty', 'Bounce', 'Hop', 'Jumper', 'Boing']
     };
     
     const chogName = names.chog[Math.floor(Math.random() * names.chog.length)];
     const yakiName = names.yaki[Math.floor(Math.random() * names.yaki.length)];
     const moyakiName = names.moyaki[Math.floor(Math.random() * names.moyaki.length)];
     
-    console.log(`🎲 New names: CHOG is ${chogName}, YAKI is ${yakiName}, MOYAKI is ${moyakiName}`);
+    // Create visual name notification
+    const nameEl = document.createElement('div');
+    nameEl.className = 'fixed bottom-4 left-4 bg-purple-600 text-white p-4 rounded-lg shadow-lg z-50 animate-pulse';
+    nameEl.innerHTML = `
+      <div class="font-bold">🎲 New Monanimal Names!</div>
+      <div>CHOG: ${chogName}</div>
+      <div>YAKI: ${yakiName}</div>
+      <div>MOYAKI: ${moyakiName}</div>
+    `;
+    document.body.appendChild(nameEl);
+    
+    setTimeout(() => {
+      nameEl.remove();
+    }, 4000);
   };
 
   return (
