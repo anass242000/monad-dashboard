@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, TrendingUp, TrendingDown } from "lucide-react";
 import { NetworkMetrics } from "@/types/blockchain";
+import InteractiveGasChart from "@/components/interactive-gas-chart";
 
 interface NetworkVitalSignsProps {
   networkData?: NetworkMetrics;
@@ -123,10 +124,10 @@ export default function NetworkVitalSigns({
           </div>
         </div>
 
-        {/* Gas Price Chart */}
+        {/* Interactive Gas Price Chart */}
         <div className="glassmorphism p-4 rounded-xl">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-semibold text-purple-300">Gas Price Trends</span>
+            <span className="text-sm font-semibold text-purple-300">Live Gas Price Trends</span>
             {isLoading ? (
               <Skeleton className="h-4 w-16" />
             ) : (
@@ -136,29 +137,11 @@ export default function NetworkVitalSigns({
             )}
           </div>
           
-          {isLoading ? (
-            <Skeleton className="h-24 w-full" />
-          ) : (
-            <div className="h-24 bg-white/10 rounded-lg flex items-end p-2">
-              {/* Simple bar chart representation */}
-              <div className="flex items-end justify-between w-full h-full">
-                {networkData?.gasPriceHistory?.map((price, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-t from-purple-600 to-purple-400 rounded-sm"
-                    style={{
-                      height: `${(price / Math.max(...(networkData.gasPriceHistory || [1]))) * 100}%`,
-                      width: `${100 / (networkData.gasPriceHistory || []).length - 2}%`
-                    }}
-                  />
-                )) || (
-                  <div className="text-xs text-purple-300 text-center w-full">
-                    No gas price history available
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          <InteractiveGasChart
+            gasPriceHistory={networkData?.gasPriceHistory || []}
+            currentGasPrice={networkData?.gasPrice || 0}
+            isLoading={isLoading}
+          />
         </div>
 
         {/* Additional Metrics */}
