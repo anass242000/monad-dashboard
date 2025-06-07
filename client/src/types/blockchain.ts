@@ -16,12 +16,17 @@ export interface Block {
   miner: string;
 }
 
+export interface GasPricePoint {
+  price: number;
+  timestamp: number;
+}
+
 export interface NetworkMetrics {
   blockHeight: number;
   tps: number;
   avgTps: number;
   gasPrice: number;
-  gasPriceHistory: number[];
+  gasPriceHistory: GasPricePoint[];
   avgBlockTime: number;
   pendingTx: number;
   validatorCount: number;
